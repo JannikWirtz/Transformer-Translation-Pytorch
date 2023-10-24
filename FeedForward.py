@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-class FeedForward(nn.Module):
 
+class FeedForward(nn.Module):
     def __init__(self, d_model: int, d_ff: int, dropout_rate: float) -> None:
         super().__init__()
         self.linear1 = nn.Linear(d_model, d_ff)
