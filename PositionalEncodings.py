@@ -24,7 +24,7 @@ class PositionalEncodings(nn.Module):
         self.register_buffer('pe', self.pe) # add pe to the model but not to the parameters
 
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = x + self.pe[:, :x.shape[1], :].requires_grad_(False) # non trainable
         return self.dropout(x)
 
