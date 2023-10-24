@@ -1,8 +1,7 @@
 import torch
 import torch.nn as nn
-import math
 
-class FeedForward(nn.module):
+class FeedForward(nn.Module):
 
     def __init__(self, d_model: int, d_ff: int, dropout_rate: float) -> None:
         super().__init__()

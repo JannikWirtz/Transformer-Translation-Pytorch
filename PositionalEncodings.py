@@ -11,7 +11,7 @@ class PositionalEncodings(nn.Module):
         self.dropout = nn.Dropout(dropout_rate)
 
         pe = torch.zeros(self.seq_len, self.model_d) # (seq_len, d_model)
-        pos = torch.arange(0, self.seq_len, dtype=torch.float).unsqueeze(1) # (seq_len, 1)
+        pos = torch.arange(0, self.seq_len, dtype = torch.float).unsqueeze(1) # (seq_len, 1)
         # use log for numerical stability
         denominator = torch.exp(torch.arange(0, self.model_d, 2).float() * (-math.log(10000.0) / self.model_d))
 
@@ -25,4 +25,3 @@ class PositionalEncodings(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = x + self.pe[:, :x.shape[1], :].requires_grad_(False) # non trainable
         return self.dropout(x)
-
