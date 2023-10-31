@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
-import math
-import MultiHeadAttention
-import FeedForward
-import ResidualConnection
-import LayerNorm
-import InputEmbeddings
-import PositionalEncodings
+from InputEmbeddings import InputEmbeddings
+from PositionalEncodings import PositionalEncodings
+from MultiHeadAttention import MultiHeadAttention
+from FeedForward import FeedForward
+from ResidualConnection import ResidualConnection
+from LayerNorm import LayerNorm
+
 
 
 class EncoderBlock(nn.Module):
