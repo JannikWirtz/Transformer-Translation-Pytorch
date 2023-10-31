@@ -53,7 +53,7 @@ class MultiHeadAttention(nn.Module):
         value = value.view(value.shape[0], -1, self.h, self.d_k).transpose(1, 2)
 
         # scaled dot product attention
-        x, self.attention_scores = self.attention(query, key, value, mask, self.dropout)
+        x, self.attention_scores = self.attention(query, key, value, self.d_k, mask, self.dropout)
 
         # Combine heads
         # (batch_size, h, seq_len, d_k) -> (batch_size, seq_len, h, d_k) -> (batch_size, seq_len, d_model)
