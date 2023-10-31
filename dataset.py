@@ -14,15 +14,9 @@ class BilingualDataset(Dataset):
         self.tgt_lang = tgt_lang
         self.seq_len = seq_len
 
-        self.sos_token = torch.Tensor(
-            self.tok_src.token_to_id("[SOS]"), dtype=torch.long
-        )
-        self.eos_token = torch.Tensor(
-            self.tok_src.token_to_id("[EOS]"), dtype=torch.long
-        )
-        self.pad_token = torch.Tensor(
-            self.tok_src.token_to_id("[PAD]"), dtype=torch.long
-        )
+        self.sos_token = torch.tensor([tok_tgt.token_to_id("[SOS]")], dtype=torch.int64)
+        self.eos_token = torch.tensor([tok_tgt.token_to_id("[EOS]")], dtype=torch.int64)
+        self.pad_token = torch.tensor([tok_tgt.token_to_id("[PAD]")], dtype=torch.int64)
 
     def __len__(self):
         return len(self.dataset)
@@ -75,7 +69,8 @@ class BilingualDataset(Dataset):
             "enc_input": enc_input,
             "enc_mask": (enc_input != self.pad_token).unsqueeze(0).unsqueeze(0).int(),  # (1, 1, seq_len)
             "dec_input": dec_input,
-            "dec_mask": (dec_input != self.pad_token).unsqueeze(0).unsqueeze(0).int() & causal_mask(dec_input.shape[0]),  # (1, seq_len) & (1, seq_len, seq_len),
+            "dec_mask": (dec_input != self.pad_token).unsqueeze(0).unsqueeze(0).int()
+            & causal_mask(dec_input.shape[0]),  # (1, seq_len) & (1, seq_len, seq_len)
             "label": label,
             "src_text": src_text,
             "tgt_text": tgt_text,
